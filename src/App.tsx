@@ -17,7 +17,7 @@ const sendMessage = (socket: Socket) => {
 };
 
 export default function App() {
-  connectToServer();
+  // connectToServer();
   return (
     <>
       <p className="text-center text-2xl text-purple-600 mt-4">
