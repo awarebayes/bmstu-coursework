@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { io, Socket } from "socket.io-client";
+import { CHAT_SERVER_URL } from "./env";
 
-function App() {
-  const [count, setCount] = useState(0)
+const Lul = () => {
+  return <img src="Lul.webp" alt="lul" width={24} />;
+};
 
+const connectToServer = () => {
+  const socket = io(CHAT_SERVER_URL);
+  console.log("Connected", socket.connected);
+  socket.on("msg", (data) => console.log("Got message:", data));
+  return socket;
+};
+
+const sendMessage = (socket: Socket) => {
+  socket.emit("message_sent", "hello this is a message");
+};
+
+export default function App() {
+  connectToServer();
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <p className="text-center text-2xl text-purple-600 mt-4">
+        My awesome twitch chat <Lul />
+      </p>
+      <p className="text-center text-lg text-purple-300">
+        Interview task by ItGroup42
       </p>
     </>
-  )
+  );
 }
-
-export default App
